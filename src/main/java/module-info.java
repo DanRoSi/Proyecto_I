@@ -1,4 +1,4 @@
-module uptc.edu.co.proyecto_i {
+module uptc.edu.co.model {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -11,6 +11,7 @@ module uptc.edu.co.proyecto_i {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens uptc.edu.co.proyecto_i to javafx.fxml;
-    exports uptc.edu.co.proyecto_i;
+    opens uptc.edu.co.model to javafx.fxml;
+
+    exports uptc.edu.co.model;
 }
