@@ -10,6 +10,7 @@ module uptc.edu.co.proyecto_i {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
 
     opens uptc.edu.co.proyecto_i to javafx.fxml;
     exports uptc.edu.co.proyecto_i;
