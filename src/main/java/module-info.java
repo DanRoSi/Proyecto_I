@@ -12,6 +12,7 @@ module uptc.edu.co.proyecto_i {
     requires com.almasb.fxgl.all;
     requires java.desktop;
 
-    opens uptc.edu.co.proyecto_i to javafx.fxml;
-    exports uptc.edu.co.proyecto_i;
+    opens uptc.edu.co.gui to javafx.fxml;
+    exports uptc.edu.co.gui;
+
 }

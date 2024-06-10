@@ -97,6 +97,7 @@ public class Calculator {
         return stack.pop();
     }
 
+
     /**
      * Devuelve la precedencia del operador.
      * 
@@ -140,7 +141,7 @@ public class Calculator {
      * @param base   la base del número.
      * @return el número en decimal.
      */
-    private int convertToDecimal(String number, String base) {
+    public int convertToDecimal(String number, String base) {
         switch (base) {
             case "BIN":
                 if (!number.matches("[01]+")) {
