@@ -2,12 +2,20 @@ package uptc.edu.co.gui;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import uptc.edu.co.logic.Calculator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CalculatorController {
+
+
+    private List<String> history = new ArrayList<>();
     @FXML
     private TextField display;
     private Calculator calculator;
@@ -51,17 +59,59 @@ public class CalculatorController {
         evaluateExpression();
     }
 
+
     private void evaluateExpression() {
         try {
             String expression = display.getText();
             double result = calculator.evaluateExpression(expression);
             String resultStr = String.valueOf(result);
             display.setText(resultStr);
-            currentBase = "DEC"; // Reset to DEC after evaluation
+            currentBase = "DEC";
+
+            history.add(expression + " = " + resultStr);
         } catch (Exception ex) {
             display.setText("Error");
         }
     }
+
+    @FXML
+    private ColorPicker colorPicker;
+
+    @FXML
+    private void handleColorPicker() {
+        Color color = colorPicker.getValue();
+        String rgb = String.format("rgb(%d, %d, %d)",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+        rootPane.setStyle("-fx-background-color: " + rgb);
+        historyPane.setStyle("-fx-background-color: " + rgb);
+        settingsPane.setStyle("-fx-background-color: " + rgb);
+    }
+
+    @FXML
+    private AnchorPane historyPane;
+
+    @FXML
+    private AnchorPane settingsPane;
+
+    @FXML
+    private AnchorPane rootPane;
+
+    @FXML
+    private TextArea historyArea;
+
+    @FXML
+    private Tab historyTab;
+
+    @FXML
+    private void handleTabChange() {
+        if (historyTab.isSelected()) {
+            // Update the history area when the history tab is selected
+            historyArea.setText(String.join("\n", history));
+        }
+    }
+
 
     private void convertToDecimal() {
         try {
@@ -77,6 +127,7 @@ public class CalculatorController {
     }
 
     private void convertBase(String targetBase) {
+        String previousDisplay = display.getText();
         try {
             String number = display.getText();
             if (!number.isEmpty()) {
@@ -89,10 +140,10 @@ public class CalculatorController {
                 currentBase = targetBase;
             }
         } catch (Exception ex) {
-            display.setText("Syntax Error");
+            display.setText("Cannot convert decimal number to " + targetBase);
 
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
-            pause.setOnFinished(event -> display.clear());
+            pause.setOnFinished(event -> display.setText(previousDisplay));
             pause.play();
         }
     }
