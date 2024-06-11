@@ -97,6 +97,20 @@ public class Calculator {
         return stack.pop();
     }
 
+    public boolean validateParentheses(String expression) {
+        int balance = 0;
+        for (char c : expression.toCharArray()) {
+            if (c == '(') {
+                balance++;
+            } else if (c == ')') {
+                balance--;
+            }
+            if (balance < 0) {
+                return false;
+            }
+        }
+        return balance == 0;
+    }
 
     /**
      * Devuelve la precedencia del operador.

@@ -28,6 +28,34 @@ public class CalculatorController {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         String command = ((javafx.scene.control.Button) event.getSource()).getText();
+        String errorMessage = null;
+
+        if (Character.isDigit(command.charAt(0)) || command.equals(".")) {
+            if (currentBase.equals("BIN") && !command.matches("[01]*")) {
+                errorMessage = "Error: Solo se permiten ceros y unos en la base binaria";
+            }
+
+            if (currentBase.equals("OCT") && !command.matches("[0-7]*")) {
+                errorMessage = "Error: Solo se permiten números del 0 al 7 en la base octal";
+            }
+
+            if (currentBase.equals("DEC") && !command.matches("\\d*\\.?\\d*")) {
+                errorMessage = "Error: Solo se permiten números decimales";
+            }
+
+            if (currentBase.equals("HEX") && !command.matches("[0-9A-Fa-f]*")) {
+                errorMessage = "Error: Solo se permiten números hexadecimales";
+            }
+        }
+
+        if (errorMessage != null) {
+            String previousText = display.getText();
+            display.setText(errorMessage);
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e -> display.setText(previousText));
+            pause.play();
+            return;
+        }
 
         switch (command) {
             case "C":
@@ -131,9 +159,8 @@ public class CalculatorController {
         try {
             String number = display.getText();
             if (!number.isEmpty()) {
-                double doubleNumber = Double.parseDouble(number);
-                if (doubleNumber == Math.floor(doubleNumber)) {
-                    number = String.valueOf((int) doubleNumber);
+                if (number.endsWith(".0")) {
+                    number = number.substring(0, number.length() - 2);
                 }
                 String result = calculator.convertBase(number, currentBase, targetBase);
                 display.setText(result);
