@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class InterfazGrafica extends Application {
+public class GraphicInterface extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/uptc/edu/co/proyecto_i/Calculadora.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/uptc/edu/co/proyecto_i/Calculator.fxml")));
         primaryStage.setTitle("Calculadora");
         primaryStage.setScene(new Scene(root));
 

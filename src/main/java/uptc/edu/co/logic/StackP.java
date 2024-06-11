@@ -39,7 +39,7 @@ public class StackP<T> {
      */
     public T pop() {
         if (isEmpty()) {
-            throw new IndexOutOfBoundsException("Pop from empty stack");
+            throw new IndexOutOfBoundsException("Pop de la pila vacía");
         }
         return items.pop();
     }
@@ -52,7 +52,7 @@ public class StackP<T> {
      */
     public T peek() {
         if (isEmpty()) {
-            throw new IndexOutOfBoundsException("Peek from empty stack");
+            throw new IndexOutOfBoundsException("Mirar desde la pila vacía");
         }
         return items.peek();
     }
